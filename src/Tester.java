@@ -30,4 +30,20 @@ public class Tester {
         System.out.println("Decrypted 2: " + decryptedStr);
     }
 
+    public void testVigenereCipher() {
+
+        String key = "rome";
+        int[] keyArr = new int[key.length()];
+        for (int i = 0; i < keyArr.length; i++) {
+            keyArr[i] = key.charAt(i)- 'a';
+        }
+        FileResource fr = new FileResource("VigenereTestData/titus-small.txt");
+        VigenereCipher vc = new VigenereCipher(keyArr);
+        String Decrypted = vc.decrypt(fr.asString());
+        String Encrypted = vc.encrypt(fr.asString());
+        System.out.println("Encrypted: " + Encrypted);
+        System.out.println("Decrypted: " + Decrypted);
+
+    }
+
 }

@@ -3,7 +3,8 @@ public class Main {
 
         Tester tester = new Tester();
         //tester.testCaserCipher();
-        tester.testCaesarCracker();
+        //tester.testCaesarCracker();
+        //tester.testVigenereCipher();
 
     }
 }

@@ -5,6 +5,11 @@ public class Main {
         //tester.testCaserCipher();
         //tester.testCaesarCracker();
         //tester.testVigenereCipher();
+        //tester.testVigenereBreaker();
+        //tester.testVigenereBreaker_tryKeyLength();
+        //tester.testVigenereBreaker_breakVigenere();
+        tester.testVigenereBreaker_breakVigenere2();
+        //tester.testVigenereBreaker_breakVigenere3();
 
     }
 }

@@ -85,4 +85,33 @@ public class VigenereBreaker {
         return "Key length and words:" + keyLength + " "+ count + "\n" + wordCounts.get(index - 1);
     }
 
+    public char mostCommonCharIn(HashSet<String> dictionary) {
+        HashMap<Character, Integer> wordCounts = new HashMap<>();
+        char mostCommon = ' ';
+        int frequency = 0;
+
+        for(String word : dictionary) {
+            for(char c : word.toCharArray()) {
+                if(wordCounts.containsKey(c)) {
+                    wordCounts.put(c, wordCounts.get(c) + 1);
+                    if(wordCounts.get(c) > frequency) {
+                        frequency = wordCounts.get(c);
+                        mostCommon = c;
+                    }
+                } else {
+                    wordCounts.put(c, 1);
+                }
+            }
+        }
+        return mostCommon;
+    }
+
+    public String breakForAllLangs(String encrypted, HashMap<String, HashSet<String>> languages) {
+
+
+
+
+    }
+
+
 }

@@ -99,5 +99,10 @@ public class Tester {
 
     }
 
+    public void testVigenereBreaker_breakAllLangs() {
+        VigenereBreaker vcb = new VigenereBreaker();
+        vcb.breakVigenere();
+    }
+
 
 }

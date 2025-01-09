@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.*;
 import edu.duke.*;
 
@@ -29,17 +30,23 @@ public class VigenereBreaker {
 
     public void breakVigenere () {
         //WRITE YOUR CODE HERE
+        HashMap<String, HashSet<String>> dictionaries = new HashMap<>();
         FileResource fr = new FileResource();
         String encryptedMessage = fr.asString();
-        FileResource fr2 = new FileResource();
-        HashSet<String> dictionary = readDictionary(fr2);
+        DirectoryResource dr = new DirectoryResource();
+        for(File dictionaryF : dr.selectedFiles()) {
+            FileResource dic = new FileResource(dictionaryF);
+            dictionaries.put(dictionaryF.getName(), readDictionary(dic));
+        }
+//        FileResource fr2 = new FileResource();
+//        HashSet<String> dictionary = readDictionary(fr2);
 
 //        int[] keySet = tryKeyLength(encryptedMessage, 4, 'e');
 //
 //        VigenereCipher cipher = new VigenereCipher(keySet);
 //        String decryptedMessage = cipher.decrypt(encryptedMessage);
 //        System.out.println(decryptedMessage);
-        System.out.println(breakForLanguage(encryptedMessage, dictionary));
+        System.out.println(breakForAllLangs(encryptedMessage, dictionaries));
     }
 
     public HashSet<String> readDictionary(FileResource fr) {
@@ -62,7 +69,7 @@ public class VigenereBreaker {
         return count;
     }
 
-    public String breakForLanguage(String encrypted, HashSet<String> dictionary) {
+    public String breakForLanguage(String encrypted, HashSet<String> dictionary, char mostCommon) {
         VigenereBreaker vb = new VigenereBreaker();
         int count = 0;
         int index = 0;
@@ -70,7 +77,7 @@ public class VigenereBreaker {
         String lowerCase = encrypted.toLowerCase();
         HashMap<Integer, String> wordCounts = new HashMap<>();
         for(int i = 1; i <= 100; i++) {
-            int[] keys = vb.tryKeyLength(lowerCase, i, 'e');
+            int[] keys = vb.tryKeyLength(lowerCase, i, mostCommon);
             VigenereCipher cipher = new VigenereCipher(keys);
             String decryptedMessage = cipher.decrypt(lowerCase);
 
@@ -107,10 +114,21 @@ public class VigenereBreaker {
     }
 
     public String breakForAllLangs(String encrypted, HashMap<String, HashSet<String>> languages) {
+        int contWords = 0;
+        StringBuilder result = new StringBuilder();
+        for(String lang : languages.keySet()) {
+            char mostCommon = mostCommonCharIn(languages.get(lang));
+            String decrypted = breakForLanguage(encrypted, languages.get(lang), mostCommon);
+            int count = countWords(decrypted, languages.get(lang));
+            if(count > contWords) {
+                contWords = count;
+                result.delete(0, result.length());
+                result.append(lang).append("\n").append(decrypted);
+            }
 
+        }
 
-
-
+        return result.toString();
     }
 
 

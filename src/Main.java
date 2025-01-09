@@ -8,8 +8,9 @@ public class Main {
         //tester.testVigenereBreaker();
         //tester.testVigenereBreaker_tryKeyLength();
         //tester.testVigenereBreaker_breakVigenere();
-        tester.testVigenereBreaker_breakVigenere2();
+        //tester.testVigenereBreaker_breakVigenere2();
         //tester.testVigenereBreaker_breakVigenere3();
+        tester.testVigenereBreaker_breakAllLangs();
 
     }
 }
